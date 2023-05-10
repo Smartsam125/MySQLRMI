@@ -14,9 +14,10 @@ public class BankImpl extends  UnicastRemoteObject implements Bank{
     {
         List<Customer> list= new ArrayList<Customer>();
         try{
-            Class.forName("jdbc:mysql://localhost:3306");
-            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/customers","root","");
-            PreparedStatement ps =con.prepareStatement("Select*from myTable");
+            Class.forName("com.mysql.jdbc.Driver");
+            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/customers","root","root");
+            System.out.println("SuccessFulConnection");
+            PreparedStatement ps =con.prepareStatement("Select*from customer");
             ResultSet rs =ps.executeQuery();
             while(rs.next()){
                 Customer c = new Customer();
@@ -32,8 +33,8 @@ public class BankImpl extends  UnicastRemoteObject implements Bank{
 
 
         }
-        catch (Exception e){
-            System.out.println(e.getMessage());
+        catch (Exception  e){
+            System.out.println("error"+ e.getMessage() );
 
         }
         return list;
